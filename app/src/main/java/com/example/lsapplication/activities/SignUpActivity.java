@@ -38,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // Toast.makeText(this, "123", Toast.LENGTH_SHORT).show();
         binding= DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
         Retrofit retropitClient = RetropitClient.getInstance();
         userApiService = retropitClient.create(UserApiService.class);
