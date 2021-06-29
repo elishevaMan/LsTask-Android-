@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<declare-styleable name="ValidatingTextInputLayout">
+    <attr name="errorLabel" format="string" />
+    <attr name="paswwordMatch" format="string" />
+    <attr name="validator" format="enum">
+        <enum name="email" value="1" />
+        <enum name="phone" value="2" />
+        <enum name="fullname" value="3" />
+        <enum name="password" value="4" />
+        <enum name="password_or_empty" value="6" />
+        <enum name="repeat_password" value="5" />
+        <enum name="not_null" value="7" />
+        <enum name="id" value="8" />
+    </attr>
+</declare-styleable>
+</resources>

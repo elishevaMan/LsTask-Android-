@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.addEmployeeActivity">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="employee"
+            type="com.example.lsapplication.model.EmployeeModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/add_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="388:439"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gray_bg"
+            app:layout_constraintWidth_percent="0.3129629"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/profile"
+            />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="369:369"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gray_bg"
+                    app:layout_constraintBottom_toBottomOf="@+id/gray_bg"
+                    app:layout_constraintWidth_percent="0.34166"
+                    />
+
+<!--
+        imageUrl="@{employee.image}"
+-->
+
+
+        <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/add_employee"
+                    app:layout_constraintStart_toStartOf="@+id/firstName"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_img"
+                    android:text="@string/add_employee"
+                    android:textSize="20sp"
+                    android:layout_marginTop="20sp"
+                    android:fontFamily="@font/open_sans_hebrew_extra_bold"
+                    />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/firstName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_employee"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintWidth_percent="0.7"
+                    android:gravity="top"
+                    android:maxLines="1"
+                    app:hintTextAppearance="@style/text_in_layout_hint_Style"
+                    android:theme="@style/TextLabel"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:id = "@+id/firstName_txt"
+                        android:hint = "@string/firstName"
+                        android:textColor="@color/light_blue"
+                        android:maxLines="1"
+                        android:text="@={employee.firstName}"
+                        android:inputType = "textPersonName"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/valid_FirstName"
+                    style="@style/ErrorText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/errorFirstName"
+                    app:layout_constraintTop_toBottomOf="@id/firstName"
+                    app:layout_constraintEnd_toEndOf="@+id/firstName"
+                    android:visibility="invisible"
+                    />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lastName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/firstName"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintWidth_percent="0.7"
+                    android:maxLines="1"
+                    app:hintTextAppearance="@style/text_in_layout_hint_Style"
+                    android:theme="@style/TextLabel"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:id = "@+id/lastName_txt"
+                        android:hint = "@string/lastName"
+                        android:maxLines="1"
+                        android:text="@={employee.lastName}"
+                        android:textColor="@color/light_blue"
+                        android:inputType = "textPersonName"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <TextView
+                    android:id="@+id/valid_last_name"
+                    style="@style/ErrorText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/errorLastName"
+                    app:layout_constraintTop_toBottomOf="@id/lastName"
+                    app:layout_constraintEnd_toEndOf="@+id/lastName"
+                    android:visibility="invisible"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/phone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lastName"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintWidth_percent="0.7"
+                    android:gravity="top"
+                    android:inputType="phone"
+                    app:hintTextAppearance="@style/text_in_layout_hint_Style"
+                    android:theme="@style/TextLabel"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:id = "@+id/phone_txt"
+                        android:hint = "@string/phone"
+                        android:maxLines="1"
+                        android:maxLength="10"
+                        android:text="@={employee.phone}"
+                        android:textColor="@color/light_blue"
+                        android:inputType = "phone"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/valid_phone"
+                    style="@style/ErrorText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/errorPhoneText"
+                    app:layout_constraintTop_toBottomOf="@id/phone"
+                    app:layout_constraintEnd_toEndOf="@+id/phone"
+                    android:visibility="invisible"
+                    />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/phone"
+                    app:layout_constraintWidth_percent="0.7"
+                    android:layout_marginTop="10dp"
+                    app:hintTextAppearance="@style/text_in_layout_hint_Style"
+                    android:theme="@style/TextLabel"
+
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:id = "@+id/address_txt"
+                        android:hint = "@string/address"
+                        android:textColor="@color/light_blue"
+                        android:maxLines="1"
+                        android:focusable="false"
+                        android:text="@={employee.address}"
+                        android:onClick="OpenGooglePlace"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/valid_address"
+                    style="@style/ErrorText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/errorAddressText"
+                    app:layout_constraintTop_toBottomOf="@id/address"
+                    app:layout_constraintEnd_toEndOf="@+id/address"
+                    android:visibility="invisible"
+                    />
+
+
+
+
+        <Spinner
+            android:id="@+id/role_spinner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.05"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="@+id/address"
+            app:layout_constraintStart_toStartOf="@+id/address"
+            app:layout_constraintTop_toBottomOf="@+id/valid_address"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:popupBackground="@drawable/white_card"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/role_text"
+            app:layout_constraintEnd_toEndOf="@+id/address"
+            app:layout_constraintStart_toStartOf="@+id/address"
+            app:layout_constraintTop_toTopOf="@+id/role_spinner"
+            android:textColor="@color/light_blue"
+            android:textSize="18sp"
+            android:text="@={employee.role}"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:id="@+id/line"
+            app:layout_constraintEnd_toEndOf="@+id/address"
+            app:layout_constraintStart_toStartOf="@+id/address"
+            app:layout_constraintTop_toBottomOf="@+id/role_text"
+            android:background="@color/blue"
+            />
+
+        <TextView
+            android:id="@+id/valid_role"
+            style="@style/ErrorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/errorPhoneText"
+            app:layout_constraintTop_toBottomOf="@id/role_text"
+            app:layout_constraintEnd_toEndOf="@+id/role_text"
+            android:visibility="invisible"
+            />
+
+
+
+        <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:id="@+id/btn_add"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintStart_toStartOf="@+id/address"
+                    app:layout_constraintTop_toBottomOf="@+id/role_spinner"
+                    android:background="@drawable/blue_btn"
+                    app:layout_constraintDimensionRatio="300:150"
+                    app:layout_constraintWidth_percent="0.2777"
+                    android:onClick="save"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_txt"
+                    app:layout_constraintTop_toTopOf="@+id/btn_add"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_add"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_add"
+                    app:layout_constraintStart_toStartOf="@+id/btn_add"
+                    android:text="@string/add"
+                    android:textColor="@android:color/white"
+
+                    />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

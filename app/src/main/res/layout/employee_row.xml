@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+>
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="employee"
+            type="com.example.lsapplication.model.EmployeeModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+<ImageView
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:id="@+id/card"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@drawable/white_card"
+    app:layout_constraintDimensionRatio="900:700"
+    app:layout_constraintWidth_percent="0.833"
+    android:layout_marginTop="20dp"
+    />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_employee"
+        app:layout_constraintDimensionRatio="183:183"
+        app:layout_constraintEnd_toEndOf="@+id/image_employee"
+        app:layout_constraintStart_toStartOf="@+id/image_employee"
+        app:layout_constraintTop_toTopOf="@+id/image_employee"
+        app:layout_constraintWidth_percent="0.139"
+        />
+
+<!--
+    imageUrl="@{employee.image}"
+-->
+
+
+    <!--
+        imageUrl="@{model.ImageProfile}"
+    -->
+
+    <ImageView
+        android:id="@+id/image_employee"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/calendar_client_list_image_box"
+        app:layout_constraintDimensionRatio="151:151"
+        app:layout_constraintEnd_toEndOf="@id/card"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="@id/card"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintTop_toTopOf="@id/card"
+        app:layout_constraintBottom_toBottomOf="@id/card"
+        app:layout_constraintWidth_percent="0.139" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/employee_name"
+        app:layout_constraintLeft_toRightOf="@+id/image_employee"
+        app:layout_constraintTop_toTopOf="@+id/image_employee"
+        app:layout_constraintBottom_toBottomOf="@id/image_employee"
+        app:layout_constraintWidth_percent="0.5"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="@font/open_sans_hebrew_bold"
+        android:textSize="18sp"
+        android:gravity="left"
+        tools:text="rrr"
+        />
+
+    <ImageView
+        android:id="@+id/edit_employee"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/calendar_more_button"
+        app:layout_constraintDimensionRatio="12:57"
+        app:layout_constraintEnd_toEndOf="@id/card"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="@id/employee_name"
+        app:layout_constraintTop_toTopOf="@+id/image_employee"
+        app:layout_constraintBottom_toBottomOf="@id/image_employee"
+        app:layout_constraintWidth_percent="0.011"
+        android:tint="#8F9BB3"/>
+
+    <ImageView
+        android:id="@+id/edit_employee_big"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintDimensionRatio="100:100"
+        app:layout_constraintEnd_toEndOf="@id/card"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="@id/employee_name"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintTop_toTopOf="@+id/image_employee"
+        app:layout_constraintBottom_toBottomOf="@id/image_employee"
+        app:layout_constraintWidth_percent="0.09"
+        android:tint="#8F9BB3"/>
+
+    <ImageView
+        android:id="@+id/role_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/new_line_choice_phone_number_from_list_gold"
+        app:layout_constraintDimensionRatio="63:63"
+        app:layout_constraintStart_toStartOf="@id/employee_name"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintBottom_toBottomOf="@id/card"
+        app:layout_constraintTop_toBottomOf="@+id/employee_name"
+        app:layout_constraintWidth_percent="0.058"
+        android:tint="@android:color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/role_employee_txt"
+        app:layout_constraintStart_toEndOf="@id/role_icon"
+        app:layout_constraintTop_toTopOf="@id/role_icon"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@android:color/black"
+        android:text="@{employee.role}"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_date_title"
+        app:layout_constraintStart_toStartOf="@id/role_employee_txt"
+        app:layout_constraintTop_toBottomOf="@id/role_employee_txt"
+        android:text="@string/start_date"
+        android:textColor="#C6CCD8"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_date_employee"
+        app:layout_constraintStart_toEndOf="@id/start_date_title"
+        app:layout_constraintTop_toTopOf="@id/start_date_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="23/06/2021"
+        android:textColor="#C6CCD8"
+        android:textSize="16sp"
+        />
+
+    <ImageView
+        android:id="@+id/phone_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/new_line_choice_phone_number_from_list_gold"
+        app:layout_constraintDimensionRatio="63:63"
+        app:layout_constraintStart_toStartOf="@+id/role_icon"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintBottom_toBottomOf="@id/card"
+        app:layout_constraintTop_toBottomOf="@+id/start_date_title"
+        app:layout_constraintWidth_percent="0.058"
+        android:tint="@android:color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone_employee_txt"
+        app:layout_constraintStart_toEndOf="@id/role_icon"
+        app:layout_constraintTop_toTopOf="@id/phone_icon"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@{employee.phone}"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"/>
+
+
+    <ImageView
+        android:id="@+id/address_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/new_line_choice_phone_number_from_list_gold"
+        app:layout_constraintDimensionRatio="63:63"
+        app:layout_constraintStart_toStartOf="@id/role_icon"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintBottom_toBottomOf="@id/card"
+        app:layout_constraintTop_toBottomOf="@+id/phone_icon"
+        app:layout_constraintWidth_percent="0.058"
+        android:tint="@android:color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/address_employee_txt"
+        app:layout_constraintStart_toEndOf="@id/role_icon"
+        app:layout_constraintTop_toTopOf="@id/address_icon"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@{employee.address}"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

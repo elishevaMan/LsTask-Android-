@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">lsApplication</string>
+    <string name="sign_in">Sign In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgetPassword"><u>Forget password?</u></string>
+    <string name="not_have_account">Don\'t have an account? </string>
+    <string name="have_account">Have an account? </string>
+    <string name="signup"> Sign Up</string>
+    <string name="terms_of_use"><u>Our Terms of Use and Privacy Policy</u></string>
+    <string name="errorEmailText">יש להזין כתובת מייל תקינה</string>
+    <string name="errorAddressText">יש להזין כתובת </string>
+    <string name="errorPasswordText">יש להזין סיסמא עם 6 תווים לפחות</string>
+    <string name="start_date">Start Date:</string>
+    <string name="managing_employees">Managing Employees</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="ls_application">"LS Application "</string>
+    <string name="do_you_want_exit_from_application">האם תרצה לצאת מהאפליקציה ?</string>
+    <string name="exit">יציאה</string>
+    <string name="cancel">ביטול</string>
+    <string name="errorFirstName">יש להזין שם פרטי תקין</string>
+    <string name="errorLastName">יש להזין שם משפחה</string>
+    <string name="errorPasswordRetype">"אימות סיסמא אינו תואם לסיסמא "</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="the_employee_delte_in_sucsess">העובד נמחק בהצלחה</string>
+    <string name="add_employee">Add Employees</string>
+    <string name="errorPhoneText">יש להזין מספר טלפון תקין</string>
+    <string name="phone">Phone</string>
+    <string name="geo_api_key">AIzaSyBfIbcrEAP9w8GB1O02W9ogW9kZpcvupC0</string>
+    <string name="add">Add</string>
+    <string name="address">Address</string>
+    <string name="toast_image_intent_null">Image picker option is missing!</string>
+    <string name="lbl_set_profile_photo">""</string>
+    <string name="lbl_take_camera_picture">לצילום תמונה</string>
+    <!--    <string name="lbl_choose_from_gallery">Choose from gallery</string>-->
+    <string name="lbl_choose_from_gallery">לבחירת תמונה מהגלריה</string>
+    <string name="no_matching_app_found_">שגיאה</string>
+    <string name="dialog_permission_title">Grant Permissions</string>
+    <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings.</string>
+    <string name="go_to_settings">GOTO SETTINGS</string>
+    <string name="the_employee_add_in_sucsess">העובד נוסף בהצלחה</string>
+    <string name="the_employee_edit_in_sucsess">"פרטי העובד התעדכנו בהצלחה "</string>
+
+
+</resources>
