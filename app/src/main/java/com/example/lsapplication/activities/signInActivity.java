@@ -1,9 +1,11 @@
 package com.example.lsapplication.activities;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,24 +19,33 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lsapplication.R;
+import com.example.lsapplication.ViewModel.userViewModel;
 import com.example.lsapplication.databinding.ActivitySignInBinding;
 import com.example.lsapplication.server.RetropitClient;
 import com.example.lsapplication.server.UserApiService;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
 
 import java.util.List;
 
+import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
@@ -44,28 +55,21 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-public class signInActivity extends AppCompatActivity implements Validator.ValidationListener {
+import static android.content.ContentValues.TAG;
+
+public class signInActivity extends AppActivity  {
          ActivitySignInBinding binding;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     UserApiService userApiService;
-    Validator validator;
-    @NotEmpty
-    @Email
-    private EditText emailEditText ;
-
-   /* @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE_SYMBOLS)
-    private EditText passwordEditText;*/
-
+    private userViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this, R.layout.activity_sign_in);
+        userViewModel = ViewModelProviders.of(this).get(userViewModel.class);
         Retrofit retropitClient = RetropitClient.getInstance(); //connect to mode
         userApiService = retropitClient.create(UserApiService.class); //connect to mode
-        emailEditText = binding.emailTxt;
-        validator = new Validator(this);
-        validator.setValidationListener(this);
         initView();
     }
     @Override
@@ -74,8 +78,11 @@ public class signInActivity extends AppCompatActivity implements Validator.Valid
         super.onStop();
     }
 
+
+
+
     private void initView() {
-      /*  binding.passwordTxt.addTextChangedListener (new TextWatcher() {
+        binding.passwordTxt.addTextChangedListener (new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -91,29 +98,34 @@ public class signInActivity extends AppCompatActivity implements Validator.Valid
                     binding.btnSignin.setBackgroundResource(R.drawable.dark_blue_btn);
             }
         });
-*/
-        binding.btnSignin.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                validator.validate();
-            }
-        });
-
     }
 
-   /* public void signIn(View view) {
-      //  signInInServer(); try sent to server
-      *//*  if((isValidEmail(binding.emailTxt.getText().toString()) && isValidPassword(binding.passwordTxt.getText().toString())))
+
+
+
+    public void signIn(View view) {
+
+        if((isValidEmail(binding.emailTxt.getText().toString()) && isValidPassword(binding.passwordTxt.getText().toString())))
         {
+            //  signInInServer(); try sent to server
+           /* userViewModel.login(binding.emailTxt.getText().toString(),binding.passwordTxt.getText().toString()); //show send to viewModel
+            userViewModel.getResult().observe(this, result-> onGetResult(result));*/
             binding.btnSignin.setBackgroundResource(R.drawable.dark_blue_btn);
             startActivity(new Intent(this, employeeActivity.class));
             finish();
-        }*//*
+        }
 
 
-        validator.validate();
-    }*/
+
+    }
+
+    private void onGetResult(String result) {
+        if(result.equals("ok"))
+        {
+            startActivity(new Intent(this, employeeActivity.class));
+            finish();
+        }
+    }
 
     public void ClickSeePassword(View view) {
         binding.passwordTxt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -151,38 +163,27 @@ public class signInActivity extends AppCompatActivity implements Validator.Valid
         finish();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void signInInServer() {
-        compositeDisposable.add(userApiService.login(binding.emailTxt.getText().toString(),binding.passwordTxt.getText().toString())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String response) {
-                        Toast.makeText(signInActivity.this, ""+response, Toast.LENGTH_SHORT).show();
-                    }
-                }));
-        startActivity(new Intent(this, SignUpActivity.class));
-        finish();
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.N)
+//    public void signInInServer() {
+//        compositeDisposable.add(userApiService.login(binding.emailTxt.getText().toString(),binding.passwordTxt.getText().toString())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<String>() {
+//                    @Override
+//                    public void accept(String response) {
+//                        Toast.makeText(SignUpActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+//                    }
+//                    public void onError(final Throwable e) {
+//                        // handle an error here
+//                    }
+//                }, throwable -> Log.e(TAG, "Throwable " + throwable.getMessage())*//*,onSuccess -> {
+//                        Toast.makeText(SignUpActivity.this, ""+"sucsses", Toast.LENGTH_SHORT).show();
+//    }, onError -> {Toast.makeText(SignUpActivity.this, ""+"error", Toast.LENGTH_SHORT).show();} ));
+//
+//}
 
-    @Override
-    public void onValidationSucceeded() {
-        Toast.makeText(this, "Yay! we got it right!", Toast.LENGTH_SHORT).show();
-    }
 
-    @Override
-    public void onValidationFailed(List<ValidationError> errors) {
-        for (ValidationError error : errors) {
-            View view = error.getView();
-            String message = error.getCollatedErrorMessage(this);
-
-            // Display error messages ;)
-            if (view instanceof EditText) {
-                ((EditText) view).setError(message);
-            } else {
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            }
-        }
+    public void niceValidation(View view) {
+        startActivity(new Intent(this, SignInWithNiceValidationActivity.class));
     }
 }

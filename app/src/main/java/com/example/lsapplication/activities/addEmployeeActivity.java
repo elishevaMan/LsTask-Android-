@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
 import android.app.Activity;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lsapplication.R;
+import com.example.lsapplication.ViewModel.EmployeeViewModel;
 import com.example.lsapplication.databinding.ActivityAddEmployeeBinding;
 import com.example.lsapplication.helper.ImageCapture;
 import com.example.lsapplication.model.EmployeeModel;
@@ -37,18 +39,21 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class addEmployeeActivity extends AppCompatActivity {
-    private static final int IMAGE_CAPTURE =2 ;
     ActivityAddEmployeeBinding binding;
     private static final int ADDRESS = 1;
     ArrayAdapter adapter;
-    String[] roleList= new String[]{"role","HR", "ENGENIR"};
+    String[] roleList= new String[]{"role","HR", "Team Leader", "Developer", "QA"};
     private static final int CAMERA_REQUEST = 1888;
     EmployeeModel employeeModel;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     boolean edit = false;
+    private EmployeeViewModel employeeViewModel;
 
 
     @Override
@@ -56,59 +61,27 @@ public class addEmployeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this, R.layout.activity_add_employee);
         employeeModel=(EmployeeModel) getIntent().getSerializableExtra("employee");
+        employeeViewModel= ViewModelProviders.of(this).get(EmployeeViewModel.class);
         if(employeeModel!=null)
         {
             edit= true;
-            Picasso.get().load(employeeModel.getImage()).fit().into(binding.profileImg);
+            Picasso.get().load(employeeModel.getImage()).rotate(90).into(binding.profileImg);
         }
-        else
-            employeeModel= new EmployeeModel();
+        else {
+            employeeModel = new EmployeeModel();
+            employeeModel.setStartDate(today());
+        }
         initSpinner();
         binding.setEmployee(employeeModel);
         binding.addImage.setOnClickListener(v -> {
-            openCamera();
+            openSomeActivityForResult();
         });
     }
 
-    public void openCamera() {
-       /* startActivityForResult(new Intent(this, ImageCapture.class)
-                        .putExtra(ImageCapture.REQUIRED_WIDTH, 400)
-                        .putExtra(ImageCapture.REQUIRED_HEIGHT, 400),
-                IMAGE_CAPTURE);*/
-
-        openSomeActivityForResult();
+    public void openSomeActivityForResult() {
+            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
-
-        ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-                            // There are no request codes
-                            Intent data = result.getData();
-                            Picasso.get().load(data.getStringExtra("url")).fit().into(binding.profileImg);
-                            employeeModel.setImage(data.getStringExtra("url"));
-
-                        }
-                    }
-                });
-
-        public void openSomeActivityForResult() {
-          /*  Intent intent = new Intent(this, ImageCapture.class);
-            intent.putExtra(ImageCapture.REQUIRED_WIDTH, 400);
-            intent.putExtra(ImageCapture.REQUIRED_HEIGHT, 400);
-            someActivityResultLauncher.launch(intent);*/
-           /* *//*if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-            {
-                requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-            }*//*
-            else
-            {*/
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-          //  }
-        }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
@@ -160,7 +133,7 @@ public class addEmployeeActivity extends AppCompatActivity {
     }
 
     public void OpenGooglePlace(View view) {
-            binding.phoneTxt.setFocusable(false);
+           // binding.phoneTxt.setFocusable(false);
         try {
             startActivityForResult(new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(this), ADDRESS);
         } catch (Exception e) {
@@ -173,22 +146,17 @@ public class addEmployeeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADDRESS && resultCode == RESULT_OK) {
             Place place = PlaceAutocomplete.getPlace(this, data);
-           // isAddressValid = true;
             binding.roleText.requestFocus();
+            binding.validAddress.setVisibility(View.INVISIBLE);
             binding.addressTxt.setText(place.getAddress().toString());
         }
-       /* if (requestCode == IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Picasso.get().load(data.getStringExtra("url")).fit().into(binding.profileImg);
-        *//*    viewModel.getCustomerDetails().setFileImage((File) data.getSerializableExtra("file"));
-            viewModel.getCustomerDetails().setImageFile(data.getStringExtra("url"));
-            change=true;*//*
-        }*/
 
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
         {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             Uri uri= getImageUri(addEmployeeActivity.this, photo);
             employeeModel.setImage(uri.toString());
+            employeeModel.setChange(true);
             binding.profileImg.setImageBitmap(photo);
         }
     }
@@ -207,6 +175,33 @@ public class addEmployeeActivity extends AppCompatActivity {
             intent.putExtra("employee", employeeModel);
             if(edit)
             {
+               /*  employeeViewModel.editEmployee(employeeModel);
+                 employeeViewModel.getResult().observe(this, result-> onGetResult(result));*/
+                intent.putExtra("position", getIntent().getIntExtra("position", 0));
+            }
+            else
+            {
+                 /* employeeViewModel.addEmployee(employeeModel);
+                   employeeViewModel.getResult().observe(this, result-> onGetResult(result));*/
+            }
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+    }
+
+    private String today() {
+
+    Date todayDate = Calendar.getInstance().getTime();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+    return  formatter.format(todayDate);
+}
+    private void onGetResult(String result) {
+        if(result.equals("ok"))
+        {
+            Intent intent= new Intent();
+            intent.putExtra("employee", employeeModel);
+            if(edit)
+            {
                 intent.putExtra("position", getIntent().getIntExtra("position", 0));
             }
             setResult(RESULT_OK, intent);
@@ -218,28 +213,30 @@ public class addEmployeeActivity extends AppCompatActivity {
     private boolean isValidPhone(CharSequence target) {
         if (!(!TextUtils.isEmpty(target) && target.length()>=9))
         {
-            binding.validFirstName.setVisibility(View.VISIBLE);
+            binding.validPhone.setVisibility(View.VISIBLE);
+            isValidAddress(binding.addressTxt.getText().toString());
             return  false;
         }
-        binding.validFirstName.setVisibility(View.INVISIBLE);
+        binding.validPhone.setVisibility(View.INVISIBLE);
         return true;
     }
     private boolean isValidAddress(CharSequence target) {
         if (!(!TextUtils.isEmpty(target)))
         {
             binding.validAddress.setVisibility(View.VISIBLE);
+            isValidRole(binding.roleText.getText().toString());
             return  false;
         }
         binding.validAddress.setVisibility(View.INVISIBLE);
         return true;
     }
     private boolean isValidRole(CharSequence target) {
-        if (!(!TextUtils.isEmpty(target)))
+        if (!(!TextUtils.isEmpty(target) && !target.equals("role")))
         {
-            binding.roleText.setVisibility(View.VISIBLE);
+            binding.validRole.setVisibility(View.VISIBLE);
             return  false;
         }
-        binding.roleText.setVisibility(View.INVISIBLE);
+        binding.validRole.setVisibility(View.INVISIBLE);
         return true;
     }
 

@@ -22,7 +22,7 @@
     <string name="do_you_want_exit_from_application">האם תרצה לצאת מהאפליקציה ?</string>
     <string name="exit">יציאה</string>
     <string name="cancel">ביטול</string>
-    <string name="errorFirstName">יש להזין שם פרטי תקין</string>
+    <string name="errorFirstName">יש להזין שם פרטי </string>
     <string name="errorLastName">יש להזין שם משפחה</string>
     <string name="errorPasswordRetype">"אימות סיסמא אינו תואם לסיסמא "</string>
     <string name="edit">Edit</string>
@@ -45,6 +45,8 @@
     <string name="go_to_settings">GOTO SETTINGS</string>
     <string name="the_employee_add_in_sucsess">העובד נוסף בהצלחה</string>
     <string name="the_employee_edit_in_sucsess">"פרטי העובד התעדכנו בהצלחה "</string>
+    <string name="nice_validation">nice validation</string>
+    <string name="errorValidText">"יש לבחור תפקיד "</string>
 
 
 </resources>

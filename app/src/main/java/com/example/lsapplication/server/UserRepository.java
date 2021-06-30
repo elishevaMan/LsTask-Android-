@@ -28,12 +28,12 @@ public class UserRepository {
         service = NetworkClient.getInstance().getUserApiService();
     }
 
-    /*public MutableLiveData<List<EmployeeModel>> getEmployeeList() {
-        MutableLiveData<List<EmployeeModel>> result = new MutableLiveData<>();
-        Call<List<EmployeeModel>> call = service.getEmployeeList();
-        call.enqueue(new Callback<List<EmployeeModel>>() {
+    public MutableLiveData<String> login(String email, String password) {
+        MutableLiveData<String> result = new MutableLiveData<>();
+        Call<String> call = service.login(email, password);
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<List<EmployeeModel>> call, Response<List<EmployeeModel>> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.body() != null) {
                     result.postValue(response.body());
                 } else {
@@ -42,11 +42,31 @@ public class UserRepository {
             }
 
             @Override
-            public void onFailure(Call<List<EmployeeModel>> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 result.postValue(null);
             }
         });
         return result;
-    }*/
+    }
+    public MutableLiveData<String> register(String firstName, String lastName, String email, String password, String passwordRetype) {
+        MutableLiveData<String> result = new MutableLiveData<>();
+        Call<String> call = service.register(firstName, lastName, email, password, passwordRetype);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body() != null) {
+                    result.postValue(response.body());
+                } else {
+                    result.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                result.postValue(null);
+            }
+        });
+        return result;
+    }
 
 }

@@ -19,20 +19,14 @@ import static com.example.lsapplication.server.NetworkClient.employees;
 
 public interface UserApiService {
 
- /*   @GET(employees+"/getAll")
-    @FormUrlEncoded
-    Observable<List<EmployeeModel>> getEmployeeList();*/
-   // Call<List<EmployeeModel>> getEmployeeList();
-
-    @POST("users")
-    @FormUrlEncoded
-    Observable<String> register(@Field("firstName") String firstName,
+    @POST(User+"register")
+    Call<String> register(@Field("firstName") String firstName,
                                 @Field("lastName") String lastName,
                                 @Field("email") String email,
-                                @Field("password") String password);
+                                @Field("password") String password,
+                                @Field("passwordRetype") String passwordRetype);
 
-    @POST("login")
-    @FormUrlEncoded
-    Observable<String> login(@Field("email") String email,
-                                @Field("password") String password);
+    @POST(User+"login")
+    Call<String> login(@Field("email") String email,
+                       @Field("password") String password);
 }

@@ -4,15 +4,27 @@ import java.io.Serializable;
 
 public class EmployeeModel implements Serializable {
     String firstName, lastName, phone, address, startDate, role, image;
+    Boolean IsChange=false;
 
-    public EmployeeModel(String firstName, String lastName, String phone, String address, String startDate, String role, String image) {
+
+
+    public EmployeeModel(String firstName, String lastName, String phone, String address, String startDate, String role, String image,Boolean isChange) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.startDate = startDate;
-      //  image = image;
+        this.image = image;
         this.phone = phone;
         this.role = role;
+        this.IsChange= isChange;
+    }
+
+    public Boolean getChange() {
+        return IsChange;
+    }
+
+    public void setChange(Boolean change) {
+        IsChange = change;
     }
 
     public EmployeeModel() {

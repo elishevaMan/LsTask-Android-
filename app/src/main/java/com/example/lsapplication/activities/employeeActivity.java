@@ -26,7 +26,7 @@ public class employeeActivity extends AppCompatActivity {
     ActivityEmployeeBinding binding;
     private EmployeesAdapter employeesAdapter;
     List<EmployeeModel> employees= new ArrayList<>();
-    private EmployeeViewModel viewModel;
+    private EmployeeViewModel employeeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +36,13 @@ public class employeeActivity extends AppCompatActivity {
     }
 
     private void initEmployeesList() {
-        viewModel= ViewModelProviders.of(this).get(EmployeeViewModel.class);
-        viewModel.getEmployeeList();
-        viewModel.getEmployeeListResult().observe(this, result->onGetEmployeeList(result));
+        employeeViewModel= ViewModelProviders.of(this).get(EmployeeViewModel.class);
+        /*employeeViewModel.getEmployeeList();
+        employeeViewModel.getEmployeeListResult().observe(this, result->onGetEmployeeList(result));*/
 
-        
-       /* employees.add(new EmployeeModel("אהרון", "פרוידיגר", "הארבעה 12", "12/03/2021","0533114372", "HR"));
-        employees.add(new EmployeeModel("אהרון", "פרוידיגר", "הארבעה 12", "12/03/2021","0533114372", "HR"));
-        employees.add(new EmployeeModel("אהרון", "פרוידיגר", "הארבעה 12", "12/03/2021","0533114372", "HR"));*/
+        employees.add(new EmployeeModel("יעל", "כהן", "0533114372", "הארבעה 12","15 פאבואר 2016", "HR", "http://app.dermabox.co.il/files/customersImage/d89f3a35931c386956c1a402a8e09941_30062021164156.jpg",false));
+        employees.add(new EmployeeModel("אהרון", "פרוידיגר", "0533114372", "הארבעה 12","14 יוני 2014", "QA", "http://app.dermabox.co.il/files/customersImage/d89f3a35931c386956c1a402a8e09941_30062021164156.jpg", false));
+        employees.add(new EmployeeModel("משה", "לוין", "0533114372", "הארבעה 12","14 אוגוסט 2013", "Developer", "http://app.dermabox.co.il/files/customersImage/d89f3a35931c386956c1a402a8e09941_30062021164156.jpg", false));
         employeesAdapter = new EmployeesAdapter(this, employees);
         binding.employeesList.setLayoutManager(new MyLinearLayoutManager(this,1,false));
         binding.employeesList.setAdapter(employeesAdapter);
@@ -57,16 +56,6 @@ public class employeeActivity extends AppCompatActivity {
             binding.employeesList.setLayoutManager(new MyLinearLayoutManager(this,1,false));
             binding.employeesList.setAdapter(employeesAdapter);
         }
-        else
-        {
-            Toast.makeText(this, "123", Toast.LENGTH_SHORT).show();
-     /*    employees.add(new EmployeeModel("אהרון", "פרוידיגר","0533114372", "הארבעה 12", "12/03/2021", "HR",""));
-         employees.add(new EmployeeModel("אהרון", "פרוידיגר", "0533114372", "הארבעה 12", "12/03/2021","HR",""));
-         employees.add(new EmployeeModel("אהרון", "פרוידיגר", "0533114372", "הארבעה 12", "12/03/2021","HR",""));
-            employeesAdapter = new EmployeesAdapter(this, employees);
-            binding.employeesList.setLayoutManager(new MyLinearLayoutManager(this,1,false));
-            binding.employeesList.setAdapter(employeesAdapter);*/
-        }
     }
 
     public void back(View view) {
@@ -79,7 +68,10 @@ public class employeeActivity extends AppCompatActivity {
         if (requestCode == ACTION && resultCode == RESULT_OK) {
             if(data!=null && data.getStringExtra("action").equals("delete"))
             {
-                employees.remove(data.getIntExtra("position", 0));
+                int position = data.getIntExtra("position", 0);
+               /* employeeViewModel.deleteEmployee(employees.get(position).getFirstName(), employees.get(position).getLastName(), employees.get(position).getPhone());
+                employeeViewModel.getResult().observe(this, result-> onGetResult(result, position));*/
+                employees.remove(position);
                 Toast.makeText(this, R.string.the_employee_delte_in_sucsess, Toast.LENGTH_SHORT).show();
                 employeesAdapter.notifyDataSetChanged();
             }
@@ -93,10 +85,19 @@ public class employeeActivity extends AppCompatActivity {
         if (requestCode == ADD && resultCode == RESULT_OK) {
             if(data!=null && data.getSerializableExtra("employee")!=null)
             {
-                employees.add((EmployeeModel) data.getSerializableExtra("employee"));
+                employees.add(0,(EmployeeModel) data.getSerializableExtra("employee"));
                 Toast.makeText(this, R.string.the_employee_add_in_sucsess, Toast.LENGTH_SHORT).show();
                 employeesAdapter.notifyDataSetChanged();
             }
+        }
+    }
+
+    private void onGetResult(String result, int position) {
+        if(result.equals("ok"))
+        {
+            employees.remove(position);
+            Toast.makeText(this, R.string.the_employee_delte_in_sucsess, Toast.LENGTH_SHORT).show();
+            employeesAdapter.notifyDataSetChanged();
         }
     }
 

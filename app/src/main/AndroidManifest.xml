@@ -12,12 +12,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ls_ic_launcher"
         android:supportsRtl="false"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <activity android:name=".activities.addEmployeeActivity"></activity>
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activities.SignInWithNiceValidationActivity"></activity>
+        <activity android:name=".activities.addEmployeeActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:configChanges="orientation|screenSize"
@@ -29,6 +30,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/geo_api_key" />
+
         <activity
             android:name=".helper.ImagePickerActivity"
             android:configChanges="screenSize|orientation"
@@ -36,12 +38,15 @@
         <activity
             android:name=".helper.ImageCapture"
             android:theme="@style/SemiTransparent" />
-        <activity android:name=".activities.employeeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.SignUpActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.signInActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.employeeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.signInActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,6 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

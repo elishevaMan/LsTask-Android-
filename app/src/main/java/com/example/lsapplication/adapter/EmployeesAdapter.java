@@ -65,7 +65,12 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.View
             binding.employeeName.setText(obj.getFirstName()+" "+obj.getLastName());
             if(obj.getImage()!=null && !obj.getImage().equals(""))
             {
-                Picasso.get().load(obj.getImage()).fit().into(binding.img);
+                if(obj.getChange())
+                {
+                    Picasso.get().load(obj.getImage()).into(binding.img);
+                }
+                else
+                Picasso.get().load(obj.getImage()).rotate(90).into(binding.img);
             }
             binding.editEmployeeBig.setOnClickListener(v -> {
                 Intent intent= new Intent(context, EditEmployeePopUp.class);

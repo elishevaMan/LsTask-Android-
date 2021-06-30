@@ -22,12 +22,13 @@ public class NetworkClient
 
 
         public static final String User = "users/";
-        public static final String employees = "employees";
+        public static final String employees = "employees/";
 
         private static NetworkClient instance;
 
         private Retrofit retrofit;
         UserApiService userApiService;
+        EmployeeApiService employeeApiService;
 
 
 
@@ -65,6 +66,7 @@ public class NetworkClient
                     .build();
 */
                 userApiService = retrofit.create(UserApiService.class);
+                employeeApiService = retrofit.create(EmployeeApiService.class);
 
 
 
@@ -89,6 +91,10 @@ public class NetworkClient
 
         public UserApiService getUserApiService() {
             return userApiService;
+        }
+
+       public EmployeeApiService getEmployeeApiService() {
+            return employeeApiService;
         }
 
 }
